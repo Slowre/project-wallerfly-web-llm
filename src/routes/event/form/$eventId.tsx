@@ -5,5 +5,6 @@ export const Route = createFileRoute('/event/form/$eventId')({
 })
 
 function RouteComponent() {
-  return <div>Hello "/event/form/$eventId"!</div>
+  const {eventId} =Route.useParams()
+  return <div>Hello "/event/form/$eventId"! {eventId}</div>
 }

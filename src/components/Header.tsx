@@ -1,9 +1,10 @@
+import { Link } from "@tanstack/react-router";
+
 export default function Header() {
     return (
-        <div className="px-4 py-3 flex items-center justify-between shadow-xl">
-            <a href="./" className="font-bold text-2xl">
-                Wallet<span className=" text-violet-500">fy</span> 2
-            </a>
+        <div className="px-4 py-3 flex items-center justify-between shadow-md">
+            
+            <Link to="/" className="font-bold text-2xl">Wallet<span className=" text-violet-500">fy</span> 2</Link>
 
             <span className="bg-gray-200 p-2 rounded shadow-lg cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"  viewBox="0 0 16 16">
