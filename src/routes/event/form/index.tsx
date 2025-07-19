@@ -1,5 +1,4 @@
 import DataRepo from '@/api/datasource'
-import Input from '@/components/form/input'
 import { useAppForm } from '@/hooks/form'
 import { eventoCreateSchema, type EventoCreate } from '@/types/Evento'
 import { useMutation } from '@tanstack/react-query'
@@ -22,34 +21,34 @@ const defaultValues: EventoCreate = {
 }
 
 function RouteComponent() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const form = useAppForm({
     defaultValues, validators: {
       onSubmit: eventoCreateSchema
 
     },
-    onSubmit: ({value}) => {
-      console.log('Valores del form: ', value)
+    onSubmit: ({ value }) => {
+      //console.log('Valores del form: ', value)
       mutation.mutate(value)
 
     },
     onSubmitInvalid(props) {
-      console.log('Form invalido ', props)
+      //console.log('Form invalido ', props)
     }
   })
 
   const mutation = useMutation<boolean, Error, EventoCreate>({
-  mutationKey: ['events'],
-  mutationFn: (values) => DataRepo.saveEvent(values),
-  onSettled: (_, error) => {
-    if (error) {
-      alert(`Error al crear evento: ${error.message}`)
-    } else {
-      navigate({ to: '/' })
+    mutationKey: ['events'],
+    mutationFn: (values) => DataRepo.saveEvent(values),
+    onSettled: (_, error) => {
+      if (error) {
+        alert(`Error al crear evento: ${error.message}`)
+      } else {
+        navigate({ to: '/' })
+      }
     }
-  }
-})
+  })
 
   return <>
     <div className='flex justify-center w-full'>

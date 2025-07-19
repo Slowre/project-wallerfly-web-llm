@@ -18,7 +18,7 @@ export default function MonthsResumen(props: MonthsResumenProps) {
                     <div>
                         <h3 className="text-gray-800 font-semibold text-lg">{date}</h3>
                         <div className="w-full border-1 border-gray-200"></div>
-                        <div className="p-2">
+                        <div className="px-2">
                             {events.map((event) => (
                                 <Event
                                     key={event.id}
