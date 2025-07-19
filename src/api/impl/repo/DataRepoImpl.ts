@@ -1,5 +1,5 @@
 import type DataDS from "@/api/domain/ds/DataDS";
-import type { EventoType } from "@/types/Evento";
+import type { EventoCreate, EventoType } from "@/types/Evento";
 
 class DataRepoImpl {
     private db: DataDS
@@ -14,6 +14,10 @@ class DataRepoImpl {
 
     async getEventById(id: string) {
         return this.db.getEventById(id)
+    }
+
+    async saveEvent(event:EventoCreate){
+        return this.db.saveEvent(event)
     }
 
     async updateEvent(event: EventoType) {

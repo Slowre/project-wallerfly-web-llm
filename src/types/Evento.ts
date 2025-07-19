@@ -2,13 +2,11 @@ import { z } from 'zod'
 
 export const eventoSchema = z.object({
     id: z.string().uuidv4(),
-    nombre: z.string({ message: "Debe ser texto" }).max(20, "Máximo 20 caracteres").min(1, "El nombre es obligatorio"),
-    descripcion: z.string().max(100, "Máximo 100 caracteres").optional(),
-    cantidad: z.number().positive("Debe ser un número positivo"),
-    fecha: z.date({
-        error: issue => issue.input === undefined ? "Required" : "Invalid date"
-    }),
-    tipo: z.enum(["egreso", "ingreso"], {
+    name: z.string({ message: "Debe ser texto" }).max(20, "Máximo 20 caracteres").min(1, "El nombre es obligatorio"),
+    description: z.string().max(100, "Máximo 100 caracteres").optional(),
+    amount: z.number().positive("Debe ser un número positivo"),
+    date: z.iso.date(),
+    type: z.enum(["Egreso", "Ingreso"], {
         error: (_) => `Ingreso invalido`
     }),
 })

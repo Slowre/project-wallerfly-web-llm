@@ -2,6 +2,7 @@ import { cn } from "@/utils/styles"
 
 type SelectProps = React.ComponentProps<'select'> & {
     label?: string
+    error?: string
     options: Array<{
         value: string
         label: string
@@ -30,6 +31,9 @@ export default function Select({ className, options, label, ...props }: SelectPr
                     <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
             </select>
+            {props.error && (
+                <p className="mt-2 text-sm text-red-600">{props.error}</p>
+            )}
         </div>
     )
 }

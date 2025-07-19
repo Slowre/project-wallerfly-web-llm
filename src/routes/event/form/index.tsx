@@ -1,27 +1,62 @@
+import DataRepo from '@/api/datasource'
 import Input from '@/components/form/input'
 import { useAppForm } from '@/hooks/form'
-import { createFileRoute } from '@tanstack/react-router'
+import { eventoCreateSchema, type EventoCreate } from '@/types/Evento'
+import { useMutation } from '@tanstack/react-query'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import dayjs from 'dayjs'
 
 export const Route = createFileRoute('/event/form/')({
   component: RouteComponent,
 })
 
+const now = dayjs();
+now.format('YYYY-MM-DD')
+
+const defaultValues: EventoCreate = {
+  name: '',
+  description: '',
+  amount: 0,
+  date: now.format('YYYY-MM-DD'),
+  type: 'Ingreso'
+}
+
 function RouteComponent() {
+   const navigate = useNavigate();
 
   const form = useAppForm({
-    defaultValues: {
-      name: '',
-      description: '',
-      date: '',
-      amount: 0,
-      type: 'ingreso'
+    defaultValues, validators: {
+      onSubmit: eventoCreateSchema
+
+    },
+    onSubmit: ({value}) => {
+      console.log('Valores del form: ', value)
+      mutation.mutate(value)
+
+    },
+    onSubmitInvalid(props) {
+      console.log('Form invalido ', props)
     }
   })
-  return <>
-    <div className='px-16 pt-24'>
 
-      <form className='flex flex-col gap-4 max-w-2xl' onSubmit={(e) => {
+  const mutation = useMutation<boolean, Error, EventoCreate>({
+  mutationKey: ['events'],
+  mutationFn: (values) => DataRepo.saveEvent(values),
+  onSettled: (_, error) => {
+    if (error) {
+      alert(`Error al crear evento: ${error.message}`)
+    } else {
+      navigate({ to: '/' })
+    }
+  }
+})
+
+  return <>
+    <div className='flex justify-center w-full'>
+
+      <form className='flex flex-col gap-4 w-full' onSubmit={(e) => {
         e.preventDefault()
+        form.handleSubmit()
       }}>
         <h2>Crear evento</h2>
         <form.AppField
@@ -32,6 +67,9 @@ function RouteComponent() {
               label='Nombre'
               placeholder='Nombre del evento'
               className='w-full'
+              value={field.state.value}
+              error={field.state.meta.errors.map((e) => e?.message).join(', ')}
+              onChange={(e) => field.setValue(e.target.value)}
             />
           )}
         />
@@ -43,6 +81,9 @@ function RouteComponent() {
               label='Descripción'
               placeholder='Descripción del evento'
               className='w-full'
+              value={field.state.value}
+              error={field.state.meta.errors.map((e) => e?.message).join(', ')}
+              onChange={(e) => field.setValue(e.target.value)}
             />
           )}
         />
@@ -52,7 +93,10 @@ function RouteComponent() {
             <field.Input
               type='date'
               label='Fecha'
-              className='w-full'
+              className='w-full justify-between'
+              value={field.state.value as EventoCreate['date']}
+              error={field.state.meta.errors.map((e) => e?.message).join(', ')}
+              onChange={(e) => field.setValue(e.target.value as EventoCreate['date'])}
             />
           )}
         />
@@ -65,6 +109,9 @@ function RouteComponent() {
               type='number'
               label='Monto'
               className='w-full'
+              value={field.state.value}
+              error={field.state.meta.errors.map((e) => e?.message).join(', ')}
+              onChange={(e) => field.setValue(+e.target.value)}
             />
           )}
         />
@@ -73,11 +120,15 @@ function RouteComponent() {
           children={(field) => (
             <field.Select
               label='Tipo'
-              className='w-full justify-between'
+              className='w-full '
               options={[
-                { label: 'Ingreso', value: 'ingreso' },
-                { label: 'Egreso', value: 'egreso' }
+                { label: 'Ingreso', value: 'Ingreso' },
+                { label: 'Egreso', value: 'Egreso' }
               ]}
+              value={field.state.value}
+              onChange={(e) => field.setValue(e.target.value as EventoCreate['type'])}
+
+              error={field.state.meta.errors.map((e) => e?.message).join(', ')}
             />
           )}
         />
@@ -97,4 +148,5 @@ function RouteComponent() {
 
 
   </>
+
 }
