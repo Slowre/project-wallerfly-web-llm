@@ -1,4 +1,5 @@
 import type DataDS from "@/api/domain/ds/DataDS";
+import type { DineroCreate } from "@/types/Dinero";
 import type { EventoCreate, EventoType } from "@/types/Evento";
 
 class DataRepoImpl {
@@ -28,6 +29,13 @@ class DataRepoImpl {
         return this.db.deleteEvent(id)
     }
 
+    async getMoney() {
+        return this.db.getMoney()
+    }
+
+    async saveMoney(money: DineroCreate){
+        return this.db.saveMoney(money)
+    }
 
 }
 

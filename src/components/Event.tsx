@@ -3,6 +3,7 @@ import { cn } from "@/utils/styles"
 import dayjs from "dayjs"
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
+import { Link } from "@tanstack/react-router"
 
 type EventProps = {
     event: EventoType
@@ -18,18 +19,29 @@ export default function Event({ event }: EventProps) {
         <div data-tooltip-id="event-description"
             {...attrTooltip}
 
-            data-tooltip-place="top">
-            <div className="p-2 flex flex-row justify-between hover:bg-gray-200 rounded-md m-2">
-                <div className="flex flex-col items-start">
-                    <span className="text-sm text-gray-700">{event.name}</span>
-                    <span className="text-xs text-gray-500">{fecha}</span>
+            data-tooltip-place="top"
+
+
+        >
+
+
+            <Link to='/event/form/$eventId' params={{ eventId: event.id }}>
+
+                <div className="p-2 flex flex-row justify-between hover:bg-gray-200 rounded-md m-2">
+                    <div className="flex flex-col items-start">
+                        <span className="text-sm text-gray-700">{event.name}</span>
+                        <span className="text-xs text-gray-500">{fecha}</span>
+                    </div>
+                    <div className={cn("text-sm", event.type == "Ingreso" ? 'text-green-700' : 'text-red-400')}>
+                        {'$' + event.amount}
+                    </div>
                 </div>
-                <div className={cn("text-sm", event.type == "Ingreso" ? 'text-green-700' : 'text-red-400')}>
-                    {'$' + event.amount}
-                </div>
-            </div>
-            <div className="w-full border-1 border-gray-200"></div>
-            <Tooltip id="event-description" />
+                <div className="w-full border-1 border-gray-200"></div>
+                <Tooltip id="event-description" />
+            </Link>
+
+
+
         </div>
     )
 }

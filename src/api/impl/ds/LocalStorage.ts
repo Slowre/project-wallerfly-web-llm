@@ -2,9 +2,12 @@ import DataDS from "@/api/domain/ds/DataDS";
 import { v4 as uuid } from 'uuid'
 import type { EventoType, EventoCreate, EventoUpdate } from "@/types/Evento";
 import dayjs from "dayjs";
+import type { DineroType, DineroCreate, DineroUpdate } from "@/types/Dinero";
 
 class LocalStorage extends DataDS {
+    
     private storageKey = 'events'
+    private storageMoneyKey = 'money'
 
     static instance: LocalStorage
 
@@ -20,7 +23,7 @@ class LocalStorage extends DataDS {
     }
 
     async getEvents(): Promise<Array<EventoType>> {
-        const events = JSON.parse(localStorage.getItem(this.storageKey) || "[]")      
+        const events = JSON.parse(localStorage.getItem(this.storageKey) || "[]")
         return events
     }
     async getEventById(id: string): Promise<EventoType> {
@@ -55,6 +58,30 @@ class LocalStorage extends DataDS {
 
         events.splice(index, 1)
         localStorage.setItem(this.storageKey, JSON.stringify(events))
+        return true
+    }
+
+    async getMoney(): Promise<DineroType > {
+        const moneyTmp = JSON.parse(localStorage.getItem(this.storageMoneyKey) || "0")
+        if(moneyTmp==0){
+            const newMoney: DineroType = { money: 0, id: uuid() }
+            localStorage.setItem(this.storageMoneyKey, JSON.stringify(newMoney))
+            return newMoney
+        }
+        return moneyTmp
+    }
+    async saveMoney(money: DineroCreate): Promise<boolean> {
+        const moneys = await this.getMoney()
+        
+        if (moneys) {
+            console.log("Aqui 1")
+            const newMoney = { money: moneys.money + money.money, id: moneys.id }
+            localStorage.setItem(this.storageMoneyKey, JSON.stringify(newMoney))
+        } else {
+            console.log("Aqui 2")
+            const newMoney: DineroType = { money: 0, id: uuid() }
+            localStorage.setItem(this.storageMoneyKey, JSON.stringify(newMoney))
+        }
         return true
     }
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 
 type MonthTotalProps = {
     events: EventoType[]
+    total:number
 }
 export default function MonthTotal(props: MonthTotalProps) {
     const [ingresos, setIngresos] = useState(0)
@@ -56,7 +57,7 @@ export default function MonthTotal(props: MonthTotalProps) {
             </div>
             <div className="flex flex-row justify-between px-2">
                 <p className="font-semibold text-gray-700">Global</p>
-                <p className=" text-gray-700">$5555</p>
+                <p className=" text-gray-700">${props.total}</p>
             </div>
         </>
 

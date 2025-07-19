@@ -14,23 +14,20 @@ const now = dayjs();
 now.format('YYYY-MM-DD')
 
 
-
-const [defaultValues, setDefaultValues] = useState<EventoCreate>({
-  name: '',
-  description: '',
-  amount: 0,
-  date: now.format('YYYY-MM-DD'),
-  type: 'Ingreso'
-})
-
-
 function RouteComponent() {
   const { eventId } = Route.useParams()
   const navigate = useNavigate();
-  // return <div>Hello "/event/form/$eventId"! {eventId}</div>
   const [mode] = useState<'create' | 'update'>(
-    eventId ? 'create' : 'update',
+    eventId ? 'update' : 'create',
   )
+
+  const [defaultValues, setDefaultValues] = useState<EventoCreate>({
+    name: '',
+    description: '',
+    amount: 0,
+    date: now.format('YYYY-MM-DD'),
+    type: 'Ingreso'
+  })
 
   const { data } = useQuery({
     enabled: mode === 'update',
@@ -82,7 +79,9 @@ function RouteComponent() {
 
   useEffect(
     () => {
+     console.log(mode)
       if (data) {
+         
         setDefaultValues({
           name: data.name,
           description: data.description,
