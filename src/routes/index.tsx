@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import '../App.css'
 import { cn } from '@/utils/styles'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import DataRepo from '@/api/datasource';
 import MonthsResumen from '@/components/MonthResumen';
-import type {  EventoType } from '@/types/Evento';
+import type { EventoType } from '@/types/Evento';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'
@@ -28,7 +28,7 @@ function App() {
 
 
   const [eventosAgrupados, setEventosAgrupados] = useState<AgrupacionMensual[]>([]);
-  const queryClient = useQueryClient();
+
 
   const { isPending, error, data: events } = useQuery({
     queryKey: ['events'],
@@ -78,7 +78,7 @@ function App() {
         const saldoInicial = saldoActual;
         const saldoFinal = saldoInicial + totalMes;
         saldoActual = saldoFinal
-       
+
         resultado.push({
           mes,
           eventos,
@@ -103,14 +103,7 @@ function App() {
     return <div className="p-4 text-red-500">Error: {error.message}</div>
   }
 
-  const deleteEvent = async (id: string) => {
-    try {
-      await DataRepo.deleteEvent(id)
-      queryClient.invalidateQueries({ queryKey: ['events'] })
-    } catch (error) {
-      alert("Error eliminando evento")
-    }
-  }
+
 
   const aumentarDinero = (cantidad: number) => {
     const nuevoDinero: DineroCreate = { money: cantidad }
@@ -119,23 +112,25 @@ function App() {
 
   return (
     <div className="App">
-      <div className='flex justify-between items-end'>
+      <div className='flex flex-col md:flex-row justify-between items-start md:items-end gap-4'>
         <SetDineroInicial
           dineroInicial={dineroInicial}
           dineroAnadir={aumentarDinero}
         />
 
-        <div className='text-2xl text-gray-700 font-bold'>Su Monto Inicial: <span  className=" text-violet-500">{dineroInicial}</span></div>
+        <div className='w-full text-2xl text-gray-700 font-bold text-center'>
+          Su Monto Inicial: <span className="text-violet-500">{dineroInicial}</span>
+        </div>
 
         <Link
           to='/event/form'
-          className={cn('bg-violet-600 text-white h-fit rounded px-3 py-2 shadow-xl hover:bg-violet-700')}
+          className={cn('bg-violet-600 w-full text-white h-fit rounded px-3 py-2 shadow-xl hover:bg-violet-700 md:w-64')}
         >
           Add Event
         </Link>
       </div>
       <div className="p-4">
-        <div className="flex flex-row flex-wrap items-stretch">
+        <div className="flex flex-row flex-wrap items-stretch justify-center">
           {eventosAgrupados.length != 0 && eventosAgrupados.map((item, indice) => (
             <MonthsResumen key={indice} date={item.mes} events={item.eventos} total={item.total} />
           ))}

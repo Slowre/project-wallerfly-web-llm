@@ -6,7 +6,7 @@ export const Route = createRootRoute({
   component: () => (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <Header />
-      <div className="flex-1 p-16">
+      <div className="flex-1 p-7 md:p-16 justify-center">
         <Outlet />
         <TanstackQueryLayout />
       </div>

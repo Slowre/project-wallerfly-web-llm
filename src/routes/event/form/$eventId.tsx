@@ -1,6 +1,6 @@
 import DataRepo from '@/api/datasource'
 import { useAppForm } from '@/hooks/form'
-import { eventoCreateSchema, type EventoCreate } from '@/types/Evento'
+import { eventoCreateSchema, type EventoCreate, type EventoType } from '@/types/Evento'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import dayjs from 'dayjs'
@@ -75,11 +75,26 @@ function RouteComponent() {
     }
   })
 
+  const mutationDelete = useMutation<boolean, Error, EventoType['id']>({
+    mutationKey: ['events'],
+    mutationFn: (values) => {
+      return DataRepo.deleteEvent(values)
+    },
+    onSettled: (_, error) => {
+      if (error) {
+        alert(`Error al almacenar evento: ${error.message}`)
+      } else {
+        alert(`Evento eliminado`)
+        navigate({ to: '/' })
+      }
+    }
+  })
+
   useEffect(
     () => {
-     console.log(mode)
+      console.log(mode)
       if (data) {
-         
+
         setDefaultValues({
           name: data.name,
           description: data.description,
@@ -91,6 +106,12 @@ function RouteComponent() {
     },
     [data]
   )
+
+
+
+
+
+
 
   return <>
     <div className='flex justify-center w-full'>
@@ -183,6 +204,20 @@ function RouteComponent() {
         </form.AppForm>
 
 
+
+        <button
+          type='button'
+          onClick={() => {
+            const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este evento?')
+            if (confirmDelete) {
+              if (data)
+                mutationDelete.mutate(data.id)
+            }
+          }}
+          className='mt-2 w-full bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded'
+        >
+          Eliminar Evento
+        </button>
       </form>
 
     </div>
