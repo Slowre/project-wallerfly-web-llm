@@ -16,7 +16,8 @@ export default function Event({ event }: EventProps) {
         ? { 'data-tooltip-content': event.description }
         : {}
     return (
-        <div data-tooltip-id="event-description"
+        <div 
+        data-tooltip-id="event-description"
             {...attrTooltip}
 
             data-tooltip-place="top"
@@ -32,7 +33,7 @@ export default function Event({ event }: EventProps) {
                         <span className="text-sm text-gray-700">{event.name}</span>
                         <span className="text-xs text-gray-500">{fecha}</span>
                     </div>
-                    <div className={cn("text-sm", event.type == "Ingreso" ? 'text-green-700' : 'text-red-400')}>
+                    <div className={cn("text-sm font-semibold", event.type == "Ingreso" ? 'text-green-700' : 'text-red-400')}>
                         {'$' + event.amount}
                     </div>
                 </div>

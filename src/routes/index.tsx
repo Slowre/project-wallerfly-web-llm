@@ -126,6 +126,8 @@ function App() {
           dineroAnadir={aumentarDinero}
         />
 
+        <div className='text-2xl text-gray-700 font-bold'>Su Monto Inicial: <span  className=" text-violet-500">{dineroInicial}</span></div>
+
         <Link
           to='/event/form'
           className={cn('bg-violet-600 text-white h-fit rounded px-3 py-2 shadow-xl hover:bg-violet-700')}
@@ -134,7 +136,7 @@ function App() {
         </Link>
       </div>
       <div className="p-4">
-        <div className="flex flex-row items-stretch">
+        <div className="flex flex-row flex-wrap items-stretch">
           {eventosAgrupados.length != 0 && eventosAgrupados.map((item, indice) => (
             <MonthsResumen key={indice} date={item.mes} events={item.eventos} total={item.total} />
           ))}

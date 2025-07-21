@@ -34,7 +34,7 @@ export default function MonthTotal(props: MonthTotalProps) {
     }, [props.events])
 
     return (
-        <>
+        <div className="bg-gray-100">
             <div className="flex flex-row justify-between px-2">
                 <p className="font-semibold text-gray-700">
                     Ingresos
@@ -59,7 +59,7 @@ export default function MonthTotal(props: MonthTotalProps) {
                 <p className="font-semibold text-gray-700">Global</p>
                 <p className=" text-gray-700">${props.total}</p>
             </div>
-        </>
+        </div>
 
     )
 }
