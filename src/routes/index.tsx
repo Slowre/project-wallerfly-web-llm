@@ -23,6 +23,7 @@ type AgrupacionMensual = {
 
 function App() {
   dayjs.locale("es");
+  
   const [dineroInicial, setDineroInicial] = useState(0);
   // const [eventosAgrupados, setEventosAgrupados] = useState<[string, EventoType[]][]>([]);
 
@@ -118,13 +119,13 @@ function App() {
           dineroAnadir={aumentarDinero}
         />
 
-        <div className='w-full text-2xl text-gray-700 font-bold text-center'>
-          Su Monto Inicial: <span className="text-violet-500">{dineroInicial}</span>
+        <div className='w-full text-2xl text-gray-700 font-bold text-center dark:text-gray-300'>
+          Su Monto Inicial: <span className="text-violet-500 dark:text-pink-500">{dineroInicial}</span>
         </div>
 
         <Link
           to='/event/form'
-          className={cn('bg-violet-600 w-full text-white h-fit rounded px-3 py-2 shadow-xl hover:bg-violet-700 md:w-64')}
+          className={cn('bg-violet-600 w-full text-white h-fit rounded px-3 py-2 shadow-xl hover:bg-violet-700 md:w-64 dark:bg-pink-500 dark:hover:bg-pink-600')}
         >
           Add Event
         </Link>

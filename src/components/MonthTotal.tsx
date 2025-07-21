@@ -34,30 +34,30 @@ export default function MonthTotal(props: MonthTotalProps) {
     }, [props.events])
 
     return (
-        <div className="bg-gray-100">
+        <div className="bg-gray-100 dark:bg-gray-500 rounded-md ">
             <div className="flex flex-row justify-between px-2">
-                <p className="font-semibold text-gray-700">
+                <p className="font-semibold text-gray-700 dark:text-gray-300">
                     Ingresos
                 </p>
-                <p className=" text-gray-700">$ {
+                <p className=" text-gray-700 dark:text-gray-300">$ {
                     ingresos
                 }</p>
             </div>
             <div className="flex flex-row justify-between px-2">
-                <p className="font-semibold text-gray-700">Egresos</p>
-                <p className=" text-gray-700">$
+                <p className="font-semibold text-gray-700 dark:text-gray-300">Egresos</p>
+                <p className=" text-gray-700 dark:text-gray-300">$
                     {
                         gastos
                     }
                 </p>
             </div>
             <div className="flex flex-row justify-between px-2">
-                <p className="font-semibold text-gray-700">Mensual</p>
-                <p className=" text-gray-700">${ingresos - gastos}</p>
+                <p className="font-semibold text-gray-700 dark:text-gray-300">Mensual</p>
+                <p className=" text-gray-700 dark:text-gray-300">${ingresos - gastos}</p>
             </div>
             <div className="flex flex-row justify-between px-2">
-                <p className="font-semibold text-gray-700">Global</p>
-                <p className=" text-gray-700">${props.total}</p>
+                <p className="font-semibold text-gray-700 dark:text-gray-300">Global</p>
+                <p className=" text-gray-700 dark:text-gray-300">${props.total}</p>
             </div>
         </div>
 

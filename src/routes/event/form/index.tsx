@@ -54,7 +54,7 @@ function RouteComponent() {
         e.preventDefault()
         form.handleSubmit()
       }}>
-        <h2>Crear evento</h2>
+        <h2 className='dark:text-gray-300'>Crear evento</h2>
         <form.AppField
           name='name'
           children={(field) => (
@@ -131,9 +131,9 @@ function RouteComponent() {
         <form.AppForm>
 
           <form.SubmitButton
-            text='Enviar'
+            text='Registrar evento'
             type='submit'
-            className='mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded'
+            className='mt-4 w-full bg-violet-500 hover:bg-violet-700 text-white font-semibold py-2 px-4 rounded uppercase dark:bg-pink-500 dark:hover:bg-pink-700'
           />
         </form.AppForm>
 
