@@ -33,9 +33,6 @@ function RouteComponent() {
       mutation.mutate(value)
 
     },
-    onSubmitInvalid(props) {
-      //console.log('Form invalido ', props)
-    }
   })
 
   const mutation = useMutation<boolean, Error, EventoCreate>({

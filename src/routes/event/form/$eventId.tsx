@@ -44,8 +44,6 @@ function RouteComponent() {
     onSubmit: ({ value }) => {
       mutation.mutate(value)
 
-    },
-    onSubmitInvalid(props) {
     }
   })
 

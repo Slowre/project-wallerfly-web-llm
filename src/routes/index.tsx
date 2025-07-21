@@ -4,13 +4,12 @@ import { cn } from '@/utils/styles'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import DataRepo from '@/api/datasource';
 import MonthsResumen from '@/components/MonthResumen';
-import type { EventoCreate, EventoType } from '@/types/Evento';
+import type {  EventoType } from '@/types/Evento';
 import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es'
 import SetDineroInicial from '@/components/SetDineroInicial';
 import type { DineroCreate } from '@/types/Dinero';
-import { ca } from 'zod/v4/locales';
 
 export const Route = createFileRoute('/')({
   component: App,
@@ -40,7 +39,7 @@ function App() {
     refetchIntervalInBackground: false, // Do not refetch in the background
   })
 
-  const { isPending: loadingDinero, error: errorDinero, data: dinero } = useQuery({
+  const { data: dinero } = useQuery({
     queryKey: ['money'],
     queryFn: () => DataRepo.getMoney(),
     refetchInterval: 2000, // Refetch every 2 seconds

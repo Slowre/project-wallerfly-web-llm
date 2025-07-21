@@ -1,5 +1,4 @@
 import type { EventoType } from "@/types/Evento"
-import type { Dayjs } from "dayjs"
 
 import 'dayjs/locale/es';
 import MonthTotal from "./MonthTotal";

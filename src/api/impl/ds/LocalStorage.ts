@@ -1,8 +1,7 @@
 import DataDS from "@/api/domain/ds/DataDS";
 import { v4 as uuid } from 'uuid'
 import type { EventoType, EventoCreate, EventoUpdate } from "@/types/Evento";
-import dayjs from "dayjs";
-import type { DineroType, DineroCreate, DineroUpdate } from "@/types/Dinero";
+import type { DineroType, DineroCreate} from "@/types/Dinero";
 
 class LocalStorage extends DataDS {
     

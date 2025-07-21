@@ -1,4 +1,4 @@
-import type { DineroCreate, DineroType, DineroUpdate } from "@/types/Dinero";
+import type { DineroCreate, DineroType } from "@/types/Dinero";
 import type { EventoCreate, EventoType, EventoUpdate } from "@/types/Evento";
 
 abstract class DataDS {
