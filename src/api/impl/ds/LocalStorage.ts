@@ -73,11 +73,9 @@ class LocalStorage extends DataDS {
         const moneys = await this.getMoney()
         
         if (moneys) {
-            console.log("Aqui 1")
             const newMoney = { money: moneys.money + money.money, id: moneys.id }
             localStorage.setItem(this.storageMoneyKey, JSON.stringify(newMoney))
         } else {
-            console.log("Aqui 2")
             const newMoney: DineroType = { money: 0, id: uuid() }
             localStorage.setItem(this.storageMoneyKey, JSON.stringify(newMoney))
         }
