@@ -11,17 +11,12 @@ import 'dayjs/locale/es'
 import SetDineroInicial from '@/components/SetDineroInicial';
 import type { DineroCreate } from '@/types/Dinero';
 import FloatingChat from '@/components/FloatingChat';
-import type LLMBaseManager from '@/managers/LLMBaseManager';
 
 export const Route = createFileRoute('/')({
   component: App,
 })
 
-const CONFIG = {
-  webLLM: {
-    modelName: 'Qwen2-0.5B-Instruct-q4f16_1-MLC', // Modelo de ejemplo para web-llm gemma-2-2b-it-q4f16_1-MLC Qwen2-0.5B-Instruct-q4f16_1-MLC
-  }
-};
+
 
 type AgrupacionMensual = {
   mes: string;
@@ -32,13 +27,8 @@ type AgrupacionMensual = {
 function App() {
   dayjs.locale("es");
 
-  const [llmManager, setLlmManager] = useState<LLMBaseManager | null>(null);
-  const [currentModelType, setCurrentModelType] = useState<'local-web' | 'remote-api'>('remote-api');
-  const [userPrompt, setUserPrompt] = useState<string>('');
-  const [response, setResponse] = useState<string>('');
-  const [streamingResponse, setStreamingResponse] = useState<string>('');
 
-  
+
   const [dineroInicial, setDineroInicial] = useState(0);
   // const [eventosAgrupados, setEventosAgrupados] = useState<[string, EventoType[]][]>([]);
 
@@ -127,7 +117,7 @@ function App() {
   }
 
 
-
+ 
 
 
 

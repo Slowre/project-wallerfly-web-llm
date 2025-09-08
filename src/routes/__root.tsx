@@ -1,6 +1,5 @@
 import Header from '@/components/Header'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
-import TanstackQueryLayout from '../integrations/tanstack-query/layout'
 
 export const Route = createRootRoute({
   component: () => (
